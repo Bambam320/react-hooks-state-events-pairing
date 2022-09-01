@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 
 function Comments({ data, setData, handleDelete }) {
   const [isClicked, setIsClicked] = useState(false)
@@ -27,22 +27,17 @@ function Comments({ data, setData, handleDelete }) {
   .sort((a,b) => {
     switch (sortBy) {
       case 'Most upvotes' : return b.upvotes - a.upvotes
-      break;
       case 'Most downvotes' : return b.downvotes - a.downvotes
-      break;
       case 'User A-Z' : return a.user.toLowerCase() > b.user.toLowerCase() ? 1 : -1
-      break;
       case 'Comment A-Z' : return a.comment.toLowerCase() > b.comment.toLowerCase() ? 1 : -1
-      break;
       case '' : return a.id - b.id
-      break;
-      default: console.log('nothing to sort')
+      default: return true
     }
   })
   .map((comment) => {
     return (
-      <>
-        <strong key={comment.id}>{comment.user}</strong>
+      <React.Fragment key={comment.id}>
+        <strong >{comment.user}</strong>
         <p>{comment.comment}</p>
         <button 
           onClick={handleClick} 
@@ -63,7 +58,7 @@ function Comments({ data, setData, handleDelete }) {
           value={comment.id}
         >Delete This Comment</button>
         <p></p>
-      </>
+      </React.Fragment>
     )
   })
 
